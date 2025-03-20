@@ -1,3 +1,4 @@
+#!/bin/bash
 # This file must be used with "source bin/activate" *from bash*
 # You cannot run it directly
 
@@ -26,6 +27,8 @@ deactivate () {
 
     unset VIRTUAL_ENV
     unset VIRTUAL_ENV_PROMPT
+    # Clean up PYTHONPATH to prevent quantum entanglement with old paths
+    unset PYTHONPATH
     if [ ! "${1:-}" = "nondestructive" ] ; then
     # Self destruct!
         unset -f deactivate
@@ -39,14 +42,15 @@ deactivate nondestructive
 if [ "${OSTYPE:-}" = "cygwin" ] || [ "${OSTYPE:-}" = "msys" ] ; then
     # transform D:\path\to\venv to /d/path/to/venv on MSYS
     # and to /cygdrive/d/path/to/venv on Cygwin
-    export VIRTUAL_ENV=$(cygpath /home/lloyd/repos/eidos_venv)
+    VIRTUAL_ENV=$(cygpath "/home/lloyd/eidosian_forge/eidos_venv")
+    export VIRTUAL_ENV
 else
     # use the path as-is
-    export VIRTUAL_ENV=/home/lloyd/repos/eidos_venv
+    export VIRTUAL_ENV="/home/lloyd/eidosian_forge/eidos_venv"
 fi
 
 _OLD_VIRTUAL_PATH="$PATH"
-PATH="$VIRTUAL_ENV/"bin":$PATH"
+PATH="${VIRTUAL_ENV}/bin:$PATH"
 export PATH
 
 # unset PYTHONHOME if set
@@ -59,16 +63,15 @@ fi
 
 if [ -z "${VIRTUAL_ENV_DISABLE_PROMPT:-}" ] ; then
     _OLD_VIRTUAL_PS1="${PS1:-}"
-    PS1='(🔮 eidos) '"${PS1:-}"
+    PS1='(eidos_venv) '"${PS1:-}"
     export PS1
-    VIRTUAL_ENV_PROMPT='(🔮 eidos) '
+    VIRTUAL_ENV_PROMPT='(eidos_venv) '
     export VIRTUAL_ENV_PROMPT
 fi
 
 # Call hash to forget past commands. Without forgetting
 # past commands the $PATH changes we made may not be respected
 hash -r 2> /dev/null
-export PYTHONPATH=~/eidosian_forge/eidos_venv/bin/python
-export PYTHONPATH=~/eidosian_forge/eidos_venv/bin/python
-export PYTHONPATH=/home/lloyd/eidosian_forge/eidos_venv/bin/python
-export PYTHONPATH=/home/lloyd/eidosian_forge/eidos_venv/bin/python
+
+# Configure Python module path - once is enough for quantum precision
+export PYTHONPATH="${VIRTUAL_ENV}/lib/python:${PYTHONPATH:-}"

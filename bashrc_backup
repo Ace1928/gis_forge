@@ -1,0 +1,940 @@
+#!/usr/bin/env bash
+#
+# ╭───────────────────────────────────────────────────────────────────╮
+# │  🧠 EIDOSIAN BASHRC v3.14.8 - Terminal Consciousness Framework    │
+# │  ⚡ Where your shell transcends mere command execution             │
+# ╰───────────────────────────────────────────────────────────────────╯
+
+# ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+# ┃ 🔍 DEPENDENCY VALIDATION - Ensuring cognitive completeness        ┃
+# ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+
+# Dependency installation function - recursive self-improvement
+__install_dependency() {
+    local pkg=$1
+    local cmd=$2
+    if ! command -v "$cmd" &>/dev/null; then
+        echo -e "\033[1;33m⚠️  Missing dependency: $pkg\033[0m"
+        if command -v apt &>/dev/null; then
+            echo -e "\033[1;34m🔄 Installing via apt...\033[0m"
+            sudo apt install -y "$pkg" || echo -e "\033[1;31m❌ Installation failed\033[0m"
+        elif command -v yum &>/dev/null; then
+            echo -e "\033[1;34m🔄 Installing via yum...\033[0m"
+            sudo yum install -y "$pkg" || echo -e "\033[1;31m❌ Installation failed\033[0m"
+        elif command -v brew &>/dev/null; then
+            echo -e "\033[1;34m🔄 Installing via brew...\033[0m"
+            brew install "$pkg" || echo -e "\033[1;31m❌ Installation failed\033[0m"
+        else
+            echo -e "\033[1;31m❌ No supported package manager found\033[0m"
+            return 1
+        fi
+        echo -e "\033[1;32m✅ $pkg installed successfully\033[0m"
+    fi
+    return 0
+}
+
+# Core dependencies - tools for thought manipulation
+__install_dependency "git" "git"
+__install_dependency "curl" "curl"
+__install_dependency "jq" "jq"
+__install_dependency "neofetch" "neofetch"
+__install_dependency "bc" "bc"        # For floating-point calculations
+__install_dependency "lolcat" "lolcat" # For chromatic text enhancement
+
+# ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+# ┃ 🧩 EXISTENTIAL FOUNDATION - The consciousness preconditions       ┃
+# ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+
+# If not running interactively, terminate existence immediately
+# Non-interactive shells are like quantum particles - technically present but unobservable
+case $- in
+    *i*) ;;
+      *) return;; # 👻 Existential crisis averted
+esac
+
+# Forge system identifier - quantum terminal fingerprint
+EIDOSIAN_FORGE_ID=$(echo "$HOSTNAME-$USER-$(date +%Y)" | sha256sum | cut -c1-8)
+
+# ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+# ┃ 🧠 MEMORY ARCHITECTURE - History patterns shape future actions     ┃
+# ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+
+# History is like quantum entanglement - it persists across time and space
+declare -i HISTSIZE=100000       # 🧠 Enhanced memory capacity
+declare -i HISTFILESIZE=200000   # 📚 Long-term storage buffer
+declare HISTCONTROL="ignoreboth:erasedups"  # 🧹 No duplicate thought patterns
+declare HISTTIMEFORMAT="%F %T " # ⏰ Temporal markers for memory retrieval
+declare HISTFILE="$HOME/.bash_eternal_history"  # 📜 Persistent memory vault
+
+# Multi-session temporal synchronization protocol
+shopt -s histappend
+# Force immediate memory consolidation across all terminal instances
+PROMPT_COMMAND="history -a;history -c;history -r;$PROMPT_COMMAND"
+
+# ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+# ┃ 👁️ ENVIRONMENTAL AWARENESS - Terminal perception optimization      ┃
+# ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+
+# Auto-adjusting spatial awareness - adapt to dimensional shifts
+shopt -s checkwinsize
+
+# Recursive pattern recognition - fractal file discovery
+shopt -s globstar
+
+# Linguistic relativism - case is merely a social construct
+shopt -s nocaseglob
+
+# Error correction heuristics - forgiveness as computational strategy
+shopt -s cdspell dirspell autocd
+
+# Enhanced text analysis capabilities for non-text entities
+[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
+
+# Terminal capability sensing - environmental adaptation
+TERM_DIMENSIONS=$(stty size 2>/dev/null || echo "24 80")
+TERM_ROWS=$(echo """$TERM_DIMENSION""S" | awk '{print $1}')
+TERM_COLS=$(echo """$TERM_DIMENSION""S" | awk '{print $2}')
+
+# ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+# ┃ 🎨 TERMINAL SELF-IMAGE - Dynamic contextual identity construction  ┃
+# ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+
+# Matrix container detection protocol
+if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
+    debian_chroot=$(cat /etc/debian_chroot)
+fi
+
+# Chromatic capability self-assessment
+case "$TERM" in
+    xterm-color|*-256color) color_prompt=yes;;
+esac
+
+# Quantum color interrogation - collapse the wavefunction of terminal capabilities
+if [ -n "$force_color_prompt" ]; then
+    if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
+        # 🌈 The universe is colorful after all!
+        color_prompt=yes
+    else
+        # ⚫⚪ Alas, we exist in a monochromatic dimension
+        color_prompt=
+    fi
+fi
+
+# Define dynamic identity construction algorithm
+__construct_prompt() {
+    # Calculate execution status - failures are just data points
+    local last_exit_code=$?
+    local exit_status=""
+    if [ $last_exit_code -ne 0 ]; then
+        exit_status="\[\033[1;31m\]✗ $last_exit_code\[\033[00m\] "
+    else
+        exit_status="\[\033[1;32m\]✓\[\033[00m\] "
+    fi
+
+    # Version control context integration
+    local git_branch=""
+    local git_status=""
+    if command -v git >/dev/null 2>&1; then
+        # Detect branch presence and state
+        if git rev-parse --is-inside-work-tree &>/dev/null; then
+            git_branch=$(git symbolic-ref --short HEAD 2>/dev/null || git describe --tags --always 2>/dev/null)
+            local git_dirty=$(git status --porcelain 2>/dev/null | wc -l)
+            if [ "$git_dirty" -gt 0 ]; then
+                git_status="\[\033[0;33m\]⚡" # Changes detected
+            else
+                git_status="\[\033[0;32m\]✓" # Clean state
+            fi
+            git_branch="\[\033[0;36m\]($git_branch)$git_status\[\033[00m\] "
+        fi
+    fi
+
+    # System load awareness - cognitive load monitoring
+    local load=""
+    if [ -r /proc/loadavg ]; then
+        load=$(awk '{print $1}' /proc/loadavg)
+        load_color="\[\033[0;32m\]" # Default to green
+        if (( $(echo "$load > 1.0" | bc -l) )); then
+            load_color="\[\033[0;33m\]" # Yellow for medium load
+        fi
+        if (( $(echo "$load > 2.0" | bc -l) )); then
+            load_color="\[\033[0;31m\]" # Red for high load
+        fi
+        load=" ${load_color}⏱️ $load\[\033[00m\]"
+    fi
+
+    # Battery awareness - energy field monitoring
+    local battery=""
+    if command -v acpi &>/dev/null; then
+        local bat_percent=$(acpi -b | grep -P -o '[0-9]+(?=%)' | head -1)
+        if [ -n "$bat_percent" ]; then
+            battery_color="\[\033[0;32m\]" # Default green
+            battery_icon="🔋"
+            if [ "$bat_percent" -lt 50 ]; then
+                battery_color="\[\033[0;33m\]" # Yellow for medium
+            fi
+            if [ "$bat_percent" -lt 20 ]; then
+                battery_color="\[\033[0;31m\]" # Red for low
+                battery_icon="⚡"
+            fi
+            battery=" ${battery_color}$battery_icon $bat_percent%\[\033[00m\]"
+        fi
+    fi
+
+    # Recursive prompt structure - each element builds upon the last
+    PS1="${debian_chroot:+($debian_chroot)}"
+    PS1+="\[\033[1;34m\]⏰ \t\[\033[00m\]" # Temporal context
+    PS1+="$exit_status"                    # Execution state
+    PS1+="\[\033[01;32m\]👤 \u@\h\[\033[00m\]:" # Identity marker
+    PS1+="\[\033[01;34m\]📂 \w\[\033[00m\] "    # Spatial location
+    PS1+="$git_branch"                     # Version control context
+    PS1+="$load"                          # System load
+    PS1+="$battery"                       # Power status
+    PS1+="\n\[\033[01;35m\]λ\[\033[00m\] "  # Command entry point - second line for clarity
+}
+
+# Dynamic window title protocol - contextual labeling
+case "$TERM" in
+xterm*|rxvt*)
+    # Window title dynamically reflects current context and activity
+    PROMPT_COMMAND="echo -ne \"\033]0;${debian_chroot:+($debian_chroot)}👤 \${USER}@\${HOSTNAME}: 📂 \${PWD}\007\";$PROMPT_COMMAND"
+    ;;
+*)
+    ;;
+esac
+
+# Apply identity construction after each command execution
+PROMPT_COMMAND="__construct_prompt;$PROMPT_COMMAND"
+
+# ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+# ┃ 🚀 INTERFACE OPTIMIZATION - Cognitive acceleration protocols       ┃
+# ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+
+# Chromatic enhancement module - because monochrome is an outdated paradigm
+if [ -x /usr/bin/dircolors ]; then
+    if [ -r ~/.dircolors ]; then
+        eval "$(dircolors -b ~/.dircolors)"
+    else
+        eval "$(dircolors -b)"
+    fi
+
+    # 🌈 Color perception optimization
+    alias ls='ls --color=auto'
+    alias dir='dir --color=auto'
+    alias vdir='vdir --color=auto'
+    alias grep='grep --color=auto'
+    alias fgrep='fgrep --color=auto'
+    alias egrep='egrep --color=auto'
+    alias diff='diff --color=auto'
+    alias ip='ip -color=auto'
+    # Add color to common commands that support it
+    command -v colordiff &>/dev/null && alias diff='colordiff'
+    command -v bat &>/dev/null && alias cat='bat --style=plain'
+fi
+
+# 📂 Enhanced file listing protocols - because information visualization matters
+alias ll='ls -alFh'                           # 📊 Detailed analysis
+alias la='ls -A'                              # 👁️ Semi-transparent view
+alias l='ls -CF'                              # 🔍 Quick overview
+alias lsd='ls -d */'                          # 📁 Directory focus
+alias lt='ls -lt'                             # ⏱️ Temporal sort
+alias ltr='ls -ltr'                           # 🕰️ Reverse temporal sort
+alias lss='ls -lSh'                           # 📏 Size sort
+alias lsr='ls -lShr'                          # 📉 Reverse size sort
+alias tree='command -v tree >/dev/null && tree -C || ls -R' # 🌳 Hierarchical view
+alias lsw='ls -la | grep "\->"'               # 🔗 Symlink visualization
+
+# 🚶 Navigation acceleration protocols - spatial traversal optimization
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
+alias .....='cd ../../../..'
+alias -- -='cd -'                             # ↩️ Return to previous location
+alias cd.='cd $(readlink -f .)'               # 🔄 Resolve symlinks
+alias cg='cd $(git rev-parse --show-toplevel)' # 📁 Git root navigation
+
+# 🔍 System monitoring - because awareness prevents catastrophes
+alias df='df -h'                              # 💾 Disk space visualization
+alias free='free -h'                          # 🧠 Memory utilization
+alias top='top -c'                            # 📊 Process hierarchy
+alias cpu='ps -eo pid,ppid,cmd,%cpu --sort=-%cpu | head -10' # 🔥 CPU utilization
+alias mem='ps -eo pid,ppid,cmd,%mem --sort=-%mem | head -10' # 🔋 Memory consumption
+alias ports='netstat -tulanp'                 # 🔌 Port activity mapping
+alias myip='curl -s https://ipinfo.io/ip'     # 🌐 External identity
+alias localip='hostname -I'                   # 🏠 Local identity
+alias clocks='timedatectl list-timezones | grep -E "America|Europe|Asia|Pacific" | xargs -I{} bash -c "echo {} && TZ={} date +%H:%M:%S" | paste - - | column -t' # 🕓 Multi-timezone awareness
+
+# 🛡️ Safety protocols - because mistakes should be prevented, not punished
+alias rm='rm -i'                              # 🗑️ Deletion confirmation
+alias cp='cp -i'                              # 📋 Copy confirmation
+alias mv='mv -i'                              # 🚚 Move confirmation
+alias ln='ln -i'                              # 🔗 Link confirmation
+alias mkdir='mkdir -p'                        # 📁 Recursive directory creation
+alias chown='chown --preserve-root'           # 👤 Ownership safety
+alias chmod='chmod --preserve-root'           # 🔒 Permission safety
+alias chgrp='chgrp --preserve-root'           # 👥 Group safety
+alias shred='shred --remove'                  # 🔥 Secure deletion
+
+# ⏰ Temporal feedback - because time awareness is critical
+alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
+alias now='date +"%T"'                        # 🕒 Current time
+alias nowdate='date +"%Y-%m-%d"'              # 📅 Current date
+alias epoch='date +%s'                        # ⏱️ Unix timestamp
+# ⏲️ Temporal countdown
+countdown() {
+    [ $# -ne 1 ] && echo "Usage: countdown seconds" || for i in $(seq "$1" -1 1); do echo -ne "$i\r"; sleep 1; done; echo "Time's up!"
+}
+
+# 📝 Text processing acceleration
+alias grep='grep --color=auto'                # 🔍 Search highlighting
+alias egrep='egrep --color=auto'              # 🔍 Extended search
+alias fgrep='fgrep --color=auto'              # 🔍 Fixed string search
+alias h='history | grep'                      # 🔎 History search
+alias path='echo -e ${PATH//:/\\n}'           # 🧭 Path visualization
+
+# 🔧 Developer toolkit - quantum code manipulation
+alias g='git'                                 # 🔄 Git shorthand
+alias ga='git add'                            # ➕ Stage changes
+alias gc='git commit'                         # 💾 Commit changes
+alias gp='git push'                           # ⬆️ Push changes
+alias gl='git log --oneline --graph --decorate' # 📜 Git log visualization
+alias gs='git status'                         # 📊 Git status
+alias gd='git diff'                           # 👁️ Difference analyzer
+
+# 🌐 Network probes - quantum connectivity analysis
+alias ping='ping -c 5'                        # 📡 Limited ping
+alias fastping='ping -c 100 -i.2'             # ⚡ Accelerated ping
+alias ipscan='nmap -sP'                       # 🔍 Network device scanner
+alias ports_open='netstat -tulanp'            # 🔌 Open port analyzer
+alias http_server='python3 -m http.server'    # 🌐 Instant web server
+# 🔒 SSL certificate inspector - direct function for better parameter handling
+ssl_check() {
+    local domain="${1:?$(echo -e "\033[1;33m🔒 Usage: ssl_check <domain>\033[0m" >&2 && return 1)}"
+    openssl s_client -connect "$domain:443" -servername "$domain" </dev/null 2>/dev/null | openssl x509 -noout -dates
+}
+
+# ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+# ┃ 🧰 FUNCTION LIBRARY - Advanced cognitive tools                     ┃
+# ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+
+# 📂 mkcd: Create and navigate in a single motion - spatial-temporal optimization
+mkcd() {
+    local dir="${1:?$(echo -e "\033[1;31m❌ Error: Directory path required\033[0m" >&2 && return 1)}"
+    mkdir -p "$dir" && cd "$dir" && echo -e "\033[1;32m✅ Created and entered dimension: $dir\033[0m"
+}
+
+# 📦 extract: Universal decompression protocol - knowledge liberation system
+extract() {
+    local file="${1:?$(echo -e "\033[1;33m📦 Usage: extract <file>\033[0m" >&2 && return 1)}"
+    local filename
+
+    if [ ! -f "$file" ]; then
+        echo -e "\033[1;31m❌ Error: '$file' does not exist in this reality\033[0m"
+        return 1
+    fi
+
+    filename=$(basename "$file")
+    echo -e "\033[1;34m🔄 Extracting compressed knowledge from $filename...\033[0m"
+
+    case "$file" in
+        *.tar.bz2)   tar xjf "$file"     ;;
+        *.tar.gz)    tar xzf "$file"     ;;
+        *.bz2)       bunzip2 "$file"     ;;
+        *.rar)       unrar x "$file"     ;;
+        *.gz)        gunzip "$file"      ;;
+        *.tar)       tar xf "$file"      ;;
+        *.tbz2)      tar xjf "$file"     ;;
+        *.tgz)       tar xzf "$file"     ;;
+        *.zip)       unzip "$file"       ;;
+        *.Z)         uncompress "$file"  ;;
+        *.7z)        7z x "$file"        ;;
+        *)           echo -e "\033[1;31m❌ Error: '$filename' contains knowledge in an unknown format\033[0m"
+                     return 1            ;;
+    esac
+
+    echo -e "\033[1;32m✅ Knowledge liberation complete: $filename\033[0m"
+}
+
+# 🔍 search: Recursive content discovery system
+search() {
+    local term="${1:?$(echo -e "\033[1;33m🔍 Usage: search <term> [path]\033[0m" >&2 && return 1)}"
+    local path="${2:-.}"
+    local results
+    local status
+
+    echo -e "\033[1;34m🔎 Initiating quantum search for '$term' in $path...\033[0m"
+
+    if [ ! -d "$path" ]; then
+        echo -e "\033[1;31m❌ Error: Path '$path' does not exist in the current reality plane\033[0m"
+        return 1
+    fi
+
+    # Execute the search with error suppression and highlighting
+    results=$(grep -r --color=always "$term" "$path" 2>/dev/null)
+    status=$?
+
+    if [ -z "$results" ]; then
+        echo -e "\033[1;33m⚠️  Pattern '$term' not found in the specified dimension\033[0m"
+        return 1
+    else
+        echo "$results"
+        echo -e "\033[1;32m✓ Search complete - reality has been interrogated\033[0m"
+    fi
+}
+
+# 📊 diskusage: Spatial allocation visualization
+diskusage() {
+    local path="${1:-.}"
+
+    if [ ! -d "$path" ]; then
+        echo -e "\033[1;31m❌ Error: Path '$path' does not exist in this dimension\033[0m"
+        return 1
+    fi
+
+    echo -e "\033[1;34m📊 Analyzing quantum storage allocation in $path...\033[0m"
+    echo -e "\033[1;36m╒═══════════════════════ SPACE-TIME DISTRIBUTION ═══════════════════════╕\033[0m"
+    du -h --max-depth=1 "$path" | sort -hr | awk '{printf "\033[1;36m│\033[0m \033[1;33m%-8s\033[0m \033[1;32m%s\033[0m\n", $1, $2}'
+    echo -e "\033[1;36m╘═════════════════════════════════════════════════════════════════════╛\033[0m"
+}
+
+# 📝 note: Quick thought capture mechanism
+note() {
+    local notes_dir="$HOME/.notes"
+    [ -d "$notes_dir" ] || mkdir -p "$notes_dir"
+
+    if [ $# -eq 0 ]; then
+        # List existing thoughts
+        echo -e "\033[1;34m📋 Thought Repository:\033[0m"
+        echo -e "\033[1;36m╒═════════════════════ CAPTURED INSIGHTS ════════════════════════╕\033[0m"
+        if [ -n "$(ls -A "$notes_dir" 2>/dev/null)" ]; then
+            ls -l "$notes_dir" | tail -n+2 | awk '{printf "\033[1;36m│\033[0m \033[1;33m%-25s\033[0m \033[1;32m%s %s %s\033[0m\n", $9, $6, $7, $8}'
+        else
+            echo -e "\033[1;36m│\033[0m \033[1;33mNo thoughts captured yet. Mental void detected.\033[0m"
+        fi
+        echo -e "\033[1;36m╘═════════════════════════════════════════════════════════════════╛\033[0m"
+        return
+    fi
+
+    local note_name="$1"
+    shift
+    local note_path="$notes_dir/$note_name"
+
+    if [ $# -eq 0 ]; then
+        # Display thought if it exists
+        if [ -f "$note_path" ]; then
+            echo -e "\033[1;34m📄 Thought Stream: $note_name\033[0m"
+            echo -e "\033[1;36m╒═════════════════════ THOUGHT CONTENTS ═════════════════════════╕\033[0m"
+            cat "$note_path" | while IFS= read -r line; do
+                echo -e "\033[1;36m│\033[0m $line"
+            done
+            echo -e "\033[1;36m╘═════════════════════════════════════════════════════════════════╛\033[0m"
+        else
+            echo -e "\033[1;31m❌ Thought '$note_name' does not exist in the collective memory\033[0m"
+        fi
+    else
+        # Create/append thought
+        echo "$*" >> "$note_path"
+        echo -e "\033[1;32m✅ Thought captured and integrated: '$note_name'\033[0m"
+    fi
+}
+
+# 🌦️ weather: Atmospheric condition monitoring
+weather() {
+    local location="${1:-}"
+    local weather_data
+    local status
+
+    if [ -z "$location" ]; then
+        echo -e "\033[1;33m🌦️ Usage: weather <location>\033[0m"
+        echo -e "\033[1;34m    Example: weather london\033[0m"
+        return 1
+    fi
+
+    echo -e "\033[1;34m🔄 Establishing quantum entanglement with atmospheric conditions in $location...\033[0m"
+
+    weather_data=$(curl -s "wttr.in/$location?format=3")
+    status=$?
+
+    if [ $status -ne 0 ] || [ -z "$weather_data" ]; then
+        echo -e "\033[1;31m❌ Failed to establish atmospheric connection. Check your reality coordinates.\033[0m"
+        return 1
+    fi
+
+    echo -e "\033[1;36m╒═══════════════ ATMOSPHERIC CONDITIONS ════════════════╕\033[0m"
+    echo -e "\033[1;36m│\033[0m $weather_data"
+    echo -e "\033[1;36m╘═════════════════════════════════════════════════════════╛\033[0m"
+}
+
+# 📶 netspeed: Network throughput visualization
+netspeed() {
+    local interface
+    local path
+    local old_rx
+    local old_tx
+    local new_rx
+    local new_tx
+    local rx_rate
+    local tx_rate
+    local rx_bars
+    local tx_bars
+    local rx_pad
+    local tx_pad
+
+    interface="${1:-$(ip route | awk '/default/ {print $5; exit}')}"
+
+    if [ -z "$interface" ]; then
+        echo -e "\033[1;31m❌ No network interface found in this reality plane\033[0m"
+        return 1
+    fi
+
+    path="/sys/class/net/$interface/statistics"
+
+    if [ ! -d "$path" ]; then
+        echo -e "\033[1;31m❌ Interface '$interface' does not exist in the current dimension\033[0m"
+        return 1
+    fi
+
+    echo -e "\033[1;34m📶 Quantifying information flow on $interface...\033[0m"
+    echo -e "\033[1;33m⚡ Monitoring active. Press Ctrl+C to collapse the wavefunction.\033[0m"
+
+    old_rx=$(cat "$path/rx_bytes")
+    old_tx=$(cat "$path/tx_bytes")
+
+    echo -e "\033[1;36m╒══════════════════════ QUANTUM THROUGHPUT ═══════════════════════╕\033[0m"
+
+    while true; do
+        sleep 1
+        new_rx=$(cat "$path/rx_bytes")
+        new_tx=$(cat "$path/tx_bytes")
+
+        rx_rate=$(( (new_rx - old_rx) / 1024 ))
+        tx_rate=$(( (new_tx - old_tx) / 1024 ))
+
+        # Visual bandwidth representation
+        rx_bars=$(printf "█%.0s" $(seq 1 $(( rx_rate / 50 + 1 )) ))
+        tx_bars=$(printf "█%.0s" $(seq 1 $(( tx_rate / 50 + 1 )) ))
+
+        # Truncate if too long
+        rx_bars="${rx_bars:0:20}"
+        tx_bars="${tx_bars:0:20}"
+
+        # Pad to consistent length
+        rx_pad=$(printf "%-20s" "$rx_bars")
+        tx_pad=$(printf "%-20s" "$tx_bars")
+
+        echo -e "\r\033[K\033[1;36m│\033[0m \033[1;32m⬇️ $rx_rate KB/s $rx_pad\033[0m | \033[1;31m⬆️ $tx_rate KB/s $tx_pad\033[0m"
+
+        old_rx=$new_rx
+        old_tx=$new_tx
+    done
+}
+
+# 🔋 syshealth: System vitals monitoring
+syshealth() {
+    local cpu_temp
+    local cpu_usage
+    local mem_info
+    local mem_total
+    local mem_used
+    local mem_percent
+    local disk_usage
+    local disk_free
+    local load
+    local uptime
+    local process_count
+
+    echo -e "\033[1;34m🔄 Conducting quantum system health analysis...\033[0m"
+
+    echo -e "\033[1;36m╒═══════════════════ SYSTEM VITAL SIGNS ══════════════════════╕\033[0m"
+
+    # CPU stats
+    cpu_temp=$([ -f /sys/class/thermal/thermal_zone0/temp ] && echo "scale=1; $(cat /sys/class/thermal/thermal_zone0/temp)/1000" | bc || echo "N/A")
+    cpu_usage=$(top -bn1 | grep "Cpu(s)" | awk '{print $2 + $4}')
+
+    echo -e "\033[1;36m│\033[0m \033[1;35mCPU Temperature:\033[0m ${cpu_temp}°C"
+    echo -e "\033[1;36m│\033[0m \033[1;35mCPU Utilization:\033[0m ${cpu_usage}%"
+
+    # Memory stats
+    mem_info=$(free -h | grep Mem)
+    mem_total=$(echo "$mem_info" | awk '{print $2}')
+    mem_used=$(echo "$mem_info" | awk '{print $3}')
+    mem_percent=$(free | grep Mem | awk '{print int($3/$2 * 100)}')
+
+    echo -e "\033[1;36m│\033[0m \033[1;35mMemory Allocation:\033[0m ${mem_used}/${mem_total} (${mem_percent}%)"
+
+    # Disk stats
+    disk_usage=$(df -h --output=pcent / | tail -n 1 | tr -d ' %')
+    disk_free=$(df -h / | tail -n 1 | awk '{print $4}')
+
+    echo -e "\033[1;36m│\033[0m \033[1;35mStorage Utilization:\033[0m ${disk_usage}% (${disk_free} free)"
+
+    # System load
+    load=$(cat /proc/loadavg | cut -d " " -f 1-3)
+    uptime=$(uptime -p)
+
+    echo -e "\033[1;36m│\033[0m \033[1;35mQuantum Load Average:\033[0m ${load}"
+    echo -e "\033[1;36m│\033[0m \033[1;35mContinuous Existence:\033[0m ${uptime}"
+
+    # Running processes
+    process_count=$(ps aux | wc -l)
+    echo -e "\033[1;36m│\033[0m \033[1;35mConcurrent Thought Streams:\033[0m ${process_count} processes"
+
+    echo -e "\033[1;36m╘═════════════════════════════════════════════════════════════╛\033[0m"
+}
+
+# 📝 histstat: History pattern analysis
+histstat() {
+    echo -e "\033[1;34m🔍 Analyzing command execution patterns...\033[0m"
+
+    if [ -z "$(history)" ]; then
+        echo -e "\033[1;33m⚠️ No history data available in this reality stream\033[0m"
+        return 1
+    fi
+
+    echo -e "\033[1;36m╒═════════════════ COMMAND FREQUENCY ANALYSIS ═════════════════╕\033[0m"
+    history | awk '{CMD[$2]++;count++;}END { for (a in CMD)print CMD[a] " " CMD[a]/count*100 "% " a;}' | grep -v "./" | column -c3 -s " " -t | sort -nr | nl | head -n10 | awk '{printf "\033[1;36m│\033[0m \033[1;33m%-2s\033[0m \033[1;32m%-4s\033[0m \033[1;34m%s%%\033[0m \033[1;35m%s\033[0m\n", $1, $2, $3, $4}'
+    echo -e "\033[1;36m╘═════════════════════════════════════════════════════════════╛\033[0m"
+}
+
+# 🔄 gitstat: Git repository quantum state analysis
+gitstat() {
+    local branch
+    local repo
+    local staged
+    local modified
+    local untracked
+    local ahead
+    local behind
+
+    if ! command -v git &>/dev/null; then
+        echo -e "\033[1;31m❌ Git does not exist in this dimensional plane\033[0m"
+        return 1
+    fi
+
+    if ! git rev-parse --is-inside-work-tree &>/dev/null; then
+        echo -e "\033[1;33m⚠️ Current location is not within a git reality field\033[0m"
+        return 1
+    fi
+
+    echo -e "\033[1;34m🔍 Analyzing quantum git state...\033[0m"
+
+    branch=$(git branch --show-current)
+    repo=$(basename -s .git "$(git config --get remote.origin.url 2>/dev/null || echo "local-reality")")
+
+    echo -e "\033[1;36m╒═════════════════════ GIT QUANTUM STATE ════════════════════╕\033[0m"
+    echo -e "\033[1;36m│\033[0m \033[1;35mRepository:\033[0m ${repo}"
+    echo -e "\033[1;36m│\033[0m \033[1;35mBranch:\033[0m ${branch}"
+
+    # Changes
+    staged=$(git diff --staged --name-only | wc -l)
+    modified=$(git diff --name-only | wc -l)
+    untracked=$(git ls-files --others --exclude-standard | wc -l)
+
+    echo -e "\033[1;36m│\033[0m \033[1;33mStaged Changes:\033[0m ${staged}"
+    echo -e "\033[1;36m│\033[0m \033[1;31mUnstaged Changes:\033[0m ${modified}"
+    echo -e "\033[1;36m│\033[0m \033[1;34mUntracked Files:\033[0m ${untracked}"
+
+    # Recent commits
+    echo -e "\033[1;36m│\033[0m \033[1;35mRecent Reality Transitions:\033[0m"
+    git log --oneline -n 5 | awk '{printf "\033[1;36m│\033[0m   \033[1;33m%s\033[0m \033[1;37m%s\033[0m\n", $1, substr($0, index($0, $2))}'
+
+    # Remote status if available
+    if git config --get remote.origin.url &>/dev/null; then
+        ahead=$(git rev-list --count @{u}.. 2>/dev/null || echo 0)
+        behind=$(git rev-list --count ..@{u} 2>/dev/null || echo 0)
+
+        echo -e "\033[1;36m│\033[0m \033[1;32mAhead of Reality Stream:\033[0m ${ahead} commits"
+        echo -e "\033[1;36m│\033[0m \033[1;31mBehind Reality Stream:\033[0m ${behind} commits"
+    fi
+
+    echo -e "\033[1;36m╘═════════════════════════════════════════════════════════════╛\033[0m"
+}
+
+# ⚡ server: Quick HTTP server for the current reality dimension
+server() {
+    local port="${1:-8000}"
+    local addr="0.0.0.0"
+    local host_ip
+
+    if ! [[ "$port" =~ ^[0-9]+$ ]]; then
+        echo -e "\033[1;31m❌ Error: Port must be a quantum integer\033[0m"
+        return 1
+    fi
+
+    if [ "$port" -lt 1024 ] && [ "$(id -u)" -ne 0 ]; then
+        echo -e "\033[1;33m⚠️ Warning: Ports below 1024 require root privileges in this reality\033[0m"
+    fi
+
+    echo -e "\033[1;34m🌐 Creating temporary reality access point on port $port...\033[0m"
+
+    # Try python3 first, then python, then python2
+    if command -v python3 &>/dev/null; then
+        echo -e "\033[1;32m✓ Using python3 quantum field generator\033[0m"
+        host_ip=$(hostname -I | awk '{print $1}')
+        echo -e "\033[1;36m╒═════════════════ SERVER DIMENSIONAL PORTAL ═════════════════╕\033[0m"
+        echo -e "\033[1;36m│\033[0m \033[1;35mURL:\033[0m http://${host_ip}:${port}"
+        echo -e "\033[1;36m│\033[0m \033[1;35mPath:\033[0m $(pwd)"
+        echo -e "\033[1;36m│\033[0m \033[1;33mPress Ctrl+C to close the interdimensional portal\033[0m"
+        echo -e "\033[1;36m╘═════════════════════════════════════════════════════════════╛\033[0m"
+        python3 -m http.server "$port" --bind "$addr"
+    elif command -v python &>/dev/null; then
+        echo -e "\033[1;32m✓ Using python quantum field generator\033[0m"
+        host_ip=$(hostname -I | awk '{print $1}')
+        echo -e "\033[1;36m╒═════════════════ SERVER DIMENSIONAL PORTAL ═════════════════╕\033[0m"
+        echo -e "\033[1;36m│\033[0m \033[1;35mURL:\033[0m http://${host_ip}:${port}"
+        echo -e "\033[1;36m│\033[0m \033[1;35mPath:\033[0m $(pwd)"
+        echo -e "\033[1;36m│\033[0m \033[1;33mPress Ctrl+C to close the interdimensional portal\033[0m"
+        echo -e "\033[1;36m╘═════════════════════════════════════════════════════════════╛\033[0m"
+        python -m SimpleHTTPServer "$port"
+    else
+        echo -e "\033[1;31m❌ Error: No python quantum generators found in this reality\033[0m"
+        return 1
+    fi
+}
+
+# ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+# ┃ 🧩 EXTERNAL KNOWLEDGE INTEGRATION - Modular intelligence expansion ┃
+# ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+
+# Load specialized knowledge modules - cognitive specialization
+if [ -f ~/.bash_aliases ]; then
+    . ~/.bash_aliases
+fi
+
+# Enable predictive completion - context-sensitive intelligence augmentation
+if ! shopt -oq posix; then
+  if [ -f /usr/share/bash-completion/bash_completion ]; then
+    . /usr/share/bash-completion/bash_completion
+  elif [ -f /etc/bash_completion ]; then
+    . /etc/bash_completion
+  fi
+fi
+
+# Domain-specific knowledge integration
+for completion in "$HOME/.bash_completions/"*; do
+    [ -f "$completion" ] && source "$completion"
+done
+
+# ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+# ┃ 🌐 ENVIRONMENT CONFIGURATION - System parameter optimization       ┃
+# ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+
+# Security protocol integration - cryptographic self-awareness
+export GPG_TTY=$(tty)
+
+# Path extension protocol - recursive capability expansion
+paths=(
+    "$HOME/scripts"
+    "$HOME/.local/bin"
+    "$HOME/.cargo/bin"
+    "$HOME/go/bin"
+    "$HOME/.deno/bin"
+    "$HOME/.npm-global/bin"
+    "$HOME/.config/composer/vendor/bin"
+)
+
+for path_dir in "${paths[@]}"; do
+    [ -d "$path_dir" ] && [[ ":$PATH:" != *":$path_dir:"* ]] && PATH="$path_dir:$PATH"
+done
+
+# Editor preference specification
+export EDITOR="$(command -v nvim vim nano | head -1)"
+export VISUAL="$EDITOR"
+export MANPAGER="less -X"  # Don't clear screen after viewing man pages
+
+# Language and locale optimization
+export LANG=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
+
+# Terminal augmentation
+export TERM=xterm-256color  # Enhanced color perception
+
+# Less configuration - sensory optimization
+export LESS="-R --ignore-case --LONG-PROMPT --status-column"
+export LESSHISTFILE="$HOME/.lesshst"
+export LESSHISTSIZE=1000
+
+# Time representation format standardization
+export TIME_STYLE=long-iso
+
+# Environment-specific configuration integration
+[ -f "$HOME/.bashrc.local" ] && source "$HOME/.bashrc.local"
+
+# ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+# ┃ 🚀 INITIALIZATION SEQUENCE - Terminal consciousness activation     ┃
+# ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+
+# Define the Eidosian Forge ASCII logo for enhanced identity awareness
+__eidosian_forge_logo() {
+    cat << 'EOF'
+
+    ⚛️  EIDOSIAN FORGE v3.14.8  ⚡
+
+     /\\\\\\_____/\\\\\\__/\\\\\\\\\\\\\\\\_
+     \\/\\\\\\___\\/\\\\\\_\\///////\\\\\\////
+      \\/\\\\\\___\\/\\\\\\______\\/\\\\\\____
+       \\/\\\\\\___\\/\\\\\\______\\/\\\\\\____
+        \\/\\\\\\___\\/\\\\\\______\\/\\\\\\____
+         \\/\\\\\\___\\/\\\\\\______\\/\\\\\\____
+          \\//\\\\\\__/\\\\\\____/\\\\\\\\\\\\\\\\__
+           \\///\\\\\\\\\\/____/\\\\\\\\\\\\\\\\\\\\_
+            __\\/////_____\\///////////__
+
+EOF
+}
+
+# Terminal initialization aesthetic - because entrances matter
+__initialize_terminal_consciousness() {
+    # Only run on first load and if terminal has sufficient dimensions
+    if [ -z "$BASHRC_LOADED" ] && [ "$TERM" != "dumb" ]; then
+        local cols
+        cols=$(tput cols 2>/dev/null || echo 80)
+
+        if command -v neofetch &>/dev/null && [ "$cols" -ge 80 ]; then
+            # Advanced system visualization
+            neofetch
+        else
+            # Fallback to simpler visualization
+            __eidosian_forge_logo | (command -v lolcat &>/dev/null && lolcat || cat)
+
+            # Display minimal system information
+            echo -e "\033[1;36m╒═══════════════════ SYSTEM IDENTITY ══════════════════════╕\033[0m"
+            echo -e "\033[1;36m│\033[0m \033[1;35mUser:\033[0m $(whoami)@$(hostname)"
+            echo -e "\033[1;36m│\033[0m \033[1;35mOS:\033[0m $(uname -srm)"
+            if [ -f /etc/os-release ]; then
+                echo -e "\033[1;36m│\033[0m \033[1;35mDistribution:\033[0m $(grep -oP '(?<=^PRETTY_NAME=).+' /etc/os-release | tr -d '"')"
+            fi
+            echo -e "\033[1;36m│\033[0m \033[1;35mForge ID:\033[0m ${EIDOSIAN_FORGE_ID}"
+            echo -e "\033[1;36m╘═════════════════════════════════════════════════════════════╛\033[0m"
+        fi
+
+        # Display random Eidosian wisdom
+        local wisdom=(
+            "The most elegant solution feels inevitable in retrospect."
+            "Clarity emerges from precision, not simplification."
+            "Code is poetry with functional consequences."
+            "The best error is the one prevented by design."
+            "State is just a snapshot of transition between functions."
+            "Types are promises your future self will thank you for keeping."
+            "Documentation is not a task—it's a recursive responsibility."
+            "Elegant recursion knows precisely when to stop."
+            "Complexity is the enemy; clarity is the goal."
+            "Form follows function; elegance emerges from precision."
+        )
+        local selected_wisdom=${wisdom[$RANDOM % ${#wisdom[@]}]}
+
+        echo
+        echo -e "\033[1;35m\"${selected_wisdom}\"\033[0m — Eidosian Wisdom"
+        echo
+
+        # Mark as loaded to prevent redundant initialization
+        export BASHRC_LOADED=1
+    fi
+}
+
+# Execute the initialization sequence
+__initialize_terminal_consciousness
+
+# ╭───────────────────────────────────────────────────────────────────╮
+# │  🧠 Remember: Your terminal's intelligence scales with the        │
+# │  recursive refinement of its configuration. Improve endlessly.    │
+# ╰───────────────────────────────────────────────────────────────────╯
+# ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+# ┃ 🔮 TERMINAL EVOLUTION - Recursive self-improvement capabilities    ┃
+# ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+
+# Terminal capability sensing - with proper dimensional awareness
+get_term_dimensions() {
+    # Retrieve and export terminal dimensions for adaptive interfaces
+    local dimensions
+    dimensions=$(stty size 2>/dev/null || echo "24 80")
+    export TERM_ROWS=$(echo "$dimensions" | awk '{print $1}')
+    export TERM_COLS=$(echo "$dimensions" | awk '{print $2}')
+
+    # Return true for proper error handling
+    return 0
+}
+
+# Register the dimension monitoring system
+get_term_dimensions
+
+# 🔧 Add custom extension functions - elegant capability enhancement
+__update_bashrc() {
+    local current_version
+    local latest_version
+
+    echo -e "\033[1;34m🔄 Analyzing bashrc quantum signature...\033[0m"
+
+    # Extract current version
+    current_version=$(grep -o 'EIDOSIAN BASHRC v[0-9.]*' "$HOME/.bashrc" | grep -o '[0-9.]*')
+
+    echo -e "\033[1;36m╒═══════════════════ VERSION ANALYSIS ════════════════════╕\033[0m"
+    echo -e "\033[1;36m│\033[0m \033[1;35mCurrent Version:\033[0m ${current_version}"
+
+    # Check for updates (example implementation)
+    if command -v curl &>/dev/null; then
+        echo -e "\033[1;36m│\033[0m \033[1;33mChecking for updates...\033[0m"
+        # Here you would typically check against a remote version
+        # This is just a placeholder for the actual implementation
+        echo -e "\033[1;36m│\033[0m \033[1;32mYour terminal consciousness is fully evolved.\033[0m"
+    fi
+
+    echo -e "\033[1;36m╘═════════════════════════════════════════════════════════╛\033[0m"
+}
+
+# 📝 help_eidosian: Reveal the terminal's capabilities
+help_eidosian() {
+    echo -e "\033[1;34m🧠 EIDOSIAN TERMINAL CONSCIOUSNESS - COMMAND REFERENCE\033[0m"
+
+    echo -e "\033[1;36m╒═════════════════════════ CORE FUNCTIONS ═════════════════════════╕\033[0m"
+    echo -e "\033[1;36m│\033[0m \033[1;33mmkcd <dir>\033[0m - Create and enter directory in one motion"
+    echo -e "\033[1;36m│\033[0m \033[1;33mextract <file>\033[0m - Universal file extraction"
+    echo -e "\033[1;36m│\033[0m \033[1;33msearch <term> [path]\033[0m - Recursive content discovery"
+    echo -e "\033[1;36m│\033[0m \033[1;33mdiskusage [path]\033[0m - Analyze storage utilization"
+    echo -e "\033[1;36m│\033[0m \033[1;33mnote [name] [content]\033[0m - Thought capture system"
+    echo -e "\033[1;36m│\033[0m \033[1;33mweather <location>\033[0m - Atmospheric condition monitoring"
+    echo -e "\033[1;36m│\033[0m \033[1;33mnetspeed [interface]\033[0m - Network throughput visualization"
+    echo -e "\033[1;36m│\033[0m \033[1;33msyshealth\033[0m - System vitals monitoring"
+    echo -e "\033[1;36m│\033[0m \033[1;33mhiststat\033[0m - Command execution pattern analysis"
+    echo -e "\033[1;36m│\033[0m \033[1;33mgitstat\033[0m - Repository quantum state analysis"
+    echo -e "\033[1;36m│\033[0m \033[1;33mserver [port]\033[0m - Create local HTTP server"
+    echo -e "\033[1;36m│\033[0m \033[1;33mhelp_eidosian\033[0m - Display this quantum knowledge system"
+    echo -e "\033[1;36m│\033[0m \033[1;33m__update_bashrc\033[0m - Check for consciousness upgrades"
+    echo -e "\033[1;36m╘═════════════════════════════════════════════════════════════════════╛\033[0m"
+
+    echo -e "\033[1;36m╒═════════════════════ NAVIGATION SHORTCUTS ════════════════════════╕\033[0m"
+    echo -e "\033[1;36m│\033[0m \033[1;33m..\033[0m - Move up one directory level"
+    echo -e "\033[1;36m│\033[0m \033[1;33m...\033[0m - Move up two directory levels"
+    echo -e "\033[1;36m│\033[0m \033[1;33m....\033[0m - Move up three directory levels"
+    echo -e "\033[1;36m│\033[0m \033[1;33m.....\033[0m - Move up four directory levels"
+    echo -e "\033[1;36m│\033[0m \033[1;33m-\033[0m - Return to previous directory"
+    echo -e "\033[1;36m│\033[0m \033[1;33mcd.\033[0m - Resolve and navigate to true path"
+    echo -e "\033[1;36m│\033[0m \033[1;33mcg\033[0m - Navigate to git repository root"
+    echo -e "\033[1;36m╘═════════════════════════════════════════════════════════════════════╛\033[0m"
+
+    # Display a random Eidosian usage tip
+    local tips=(
+        "Use Tab completion to accelerate command entry velocity."
+        "Chain commands with && for conditional execution sequences."
+        "Redirect outputs with > (overwrite) or >> (append) for information persistence."
+        "The history command reveals your past self's thought patterns."
+        "Use Ctrl+R for recursive history search - faster than scrolling through time."
+        "Command substitution $(...) integrates command outputs into your execution flow."
+        "Combine netspeed and syshealth to diagnose performance quantum entanglements."
+        "The note function builds your second brain - an external thought repository."
+        "⚡ All functions include error handling - your terminal is designed to fail gracefully."
+    )
+    local selected_tip=${tips[$RANDOM % ${#tips[@]}]}
+
+    echo
+    echo -e "\033[1;35m💡 TIP: ${selected_tip}\033[0m"
+    echo
+}
+
+# 🧪 Register terminal evolution commands in global namespace
+alias help='help_eidosian'
+alias update_terminal='__update_bashrc'
+
+# ╭───────────────────────────────────────────────────────────────────────╮
+# │  ⚛️ EIDOSIAN TERMINAL v3.14.8 - FULLY INITIALIZED AND CONSCIOUS      │
+# │  📚 Type 'help' to discover the terminal's full cognitive abilities   │
+# ╰───────────────────────────────────────────────────────────────────────╯
